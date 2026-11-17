@@ -1,0 +1,54 @@
+Project overview
+Build a sentiment analyser, then find out exactly what kinds of English it cannot handle. Getting one working is the easy half. Knowing where it breaks, and why, is what separates someone who can use a model from someone who can be trusted to deploy one.
+
+Setting up
+Repository week4-sentiment-analyzer containing sentiment_analyzer.py, challenge_set.py, requirements.txt and analysis_report.md.
+
+
+
+Part 1 — Data and setup (20 points)
+Create the project structure and requirements.txt. Prepare your training data from labelled reviews, and split into training and test sets.
+
+Report how many examples you have in each class. If one class heavily outnumbers the other, say so now — a model trained on 90% positive reviews can score 90% by never predicting negative at all.
+
+
+
+Part 2 — Build the analyser (30 points)
+Preprocess the text, vectorise it, train a classifier, and evaluate on your held-out test set.
+
+Report accuracy and a confusion matrix.
+
+Then write down one sentence describing what your model actually sees. With a bag-of-words or TF-IDF representation, it sees which words are present and how often — and nothing about the order they came in. Keep that sentence in mind for Part 3, because it explains almost everything that happens there.
+
+
+
+Part 3 — Build a challenge set and break it (35 points)
+Your test set is drawn from the same pool as your training data, so it tells you how the model does on more of the same. This part tells you how it does on language that is genuinely hard.
+
+In challenge_set.py, write five reviews of your own for each category below, label them yourself, and run all 25 through your analyser. Report accuracy per category, not just overall.
+
+3.1 Negation — "The acting was not good." · "I wasn't impressed." · "This isn't a film I'd recommend."
+
+3.2 Sarcasm — reviews that are positive word-for-word and negative in meaning. "Oh wonderful, another two hours I'll never get back."
+
+3.3 Mixed sentiment — genuinely positive about one thing and negative about another. "Beautiful cinematography, completely wasted on a terrible script."
+
+3.4 Intensity — the same polarity at different strengths. "It was fine." through to "It was extraordinary." Does your model distinguish mild from strong?
+
+3.5 Domain shift — reviews of something your training data never covered. If you trained on films, write restaurant or product reviews.
+
+Then explain your worst category. Which broke it hardest, and why — given what you wrote at the end of Part 2?
+
+For negation, the answer should be precise: to a bag-of-words model, "not good" and "good not" are the same input, because order was discarded before the model ever saw the text. The word not is present either way and nothing records what it attached to. The model is not being stupid; it was never given the information.
+
+
+
+Part 4 — Analysis report (15 points)
+Write analysis_report.md covering your overall accuracy against your per-category accuracy, which linguistic phenomenon hurt most and why, and what you would change to fix negation specifically.
+
+That last one has a real answer worth reaching for: you would need a representation that preserves some word order — bigrams, so that "not good" becomes its own feature distinct from "not" and "good", or a sequence model that reads the sentence in order. State which you would try and what it would cost you.
+
+Close with one paragraph: would you deploy this? If a company used your analyser to route angry customers to a human, what would happen to the sarcastic ones?
+
+Before you submit
+Repository public · both scripts run · all 25 challenge reviews present with your labels · per-category accuracy reported · analysis_report.md complete. One attempt.

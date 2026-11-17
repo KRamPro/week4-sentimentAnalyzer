@@ -1,0 +1,107 @@
+Objective
+Classify text two completely different ways — once by building a classical NLP pipeline, once by writing prompts for a language model — and work out what each approach actually costs you. The comparison is the assignment.
+
+Work in Colab. Name the notebook CSCI130_Assignment4_YourName, with your name, CSCI 130-41083, the assignment name and date in the first cell.
+
+
+
+Part 1 — Build the pipeline (30 points)
+Install NLTK and download punkt, stopwords and wordnet.
+
+1.1 (15 points) Write functions for each stage: tokenization, lowercasing, punctuation removal, stopword removal, lemmatization. Apply them to a sample text of your choice and print the output after every single step, so you can see the text shrinking.
+
+1.2 (10 points) Now run this sentence through your pipeline:
+
+"The movie was not good and I would not recommend it."
+
+Print the result after stopword removal and look at it carefully. NLTK's English stopword list contains "not." Report what your sentence has become and what that does to its meaning.
+
+Every stage of a pipeline throws information away. That is the point of a pipeline — it removes what you have decided does not matter. This is what happens when that decision is wrong. In one short paragraph, say when you would and would not remove stopwords.
+
+1.3 (5 points) Explain lemmatization versus stemming, and give one word where the two produce different output. Run both to prove it.
+
+
+
+Part 2 — Classify it the classical way (25 points)
+Use the NLTK movie reviews corpus.
+
+Prepare the data with your pipeline, vectorise it, train a classifier, and evaluate on a held-out test set. Report accuracy and a confusion matrix, not accuracy alone.
+
+Then set aside ten specific test reviews — five the model got right, five it got wrong. You will reuse these exact ten in Part 3.
+
+
+
+Part 3 — Classify it with a language model (25 points)
+Same ten reviews. No training data, no pipeline. Just a prompt.
+
+Use any LLM you can access — Google AI Studio, Hugging Face, or another with a free tier. Ask me in the first half of the week if you do not have access to one.
+
+Write three prompts of increasing structure and test all three on the same ten reviews:
+
+3.1 Bare — "Is this movie review positive or negative?" plus the review.
+
+3.2 Constrained — specify the exact labels and the output format you want. "Answer with exactly one word: POSITIVE or NEGATIVE."
+
+3.3 Few-shot — include two or three labelled examples in the prompt before the review you want classified.
+
+Record accuracy out of ten for each prompt, and keep the full text of every prompt in your notebook.
+
+This is what prompt engineering is: not phrasing tricks, but a measurable change in behaviour that you can demonstrate with numbers. Report which version worked best and what specifically changed in the model's output between them — including the ways it misbehaved on the bare prompt, such as refusing, hedging, or explaining instead of answering.
+
+
+
+Part 4 — Compare and decide (20 points)
+Fill in this table from your own results, then answer the question below it.
+
+
+
+Classical pipeline
+
+LLM with prompt
+
+Accuracy on your ten
+
+
+
+
+
+Labelled training data needed
+
+
+
+
+
+Time to get working
+
+
+
+
+
+Cost per 1,000 classifications
+
+
+
+
+
+Can you explain a single decision?
+
+
+
+
+
+What happens on text unlike the training data
+
+
+
+
+
+Then answer this in a paragraph. You run a company classifying ten million reviews a month. Which approach do you deploy, and what would have to change for you to switch to the other one?
+
+There is no correct answer. There is a correct way to answer: one that uses your own numbers.
+
+Also note where each one failed. The five reviews your classical model got wrong — did the LLM get them right? Were there reviews the LLM got wrong that the classical model handled easily? Those disagreements are the most informative result in the assignment.
+
+
+
+Before you submit
+All cells run with output visible · all three prompts reproduced in full · the Part 4 table filled from your own measurements · both failure analyses present · File → Download → .ipynb. One attempt.
